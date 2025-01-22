@@ -1,0 +1,22 @@
+services:
+  # Container para o PHP
+  php:
+    build: 
+      context: .
+    image: php-api
+    container_name: php-api
+    ports:
+      - "8080:80"
+    volumes:
+      - ".:/var/www/html/"
+    command: php -S 0.0.0.0:80 -t public/
+    links:
+      - composer
+  # Container para o composer
+  composer:
+    image: composer:latest
+    container_name: composer-api
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    entrypoint: ["composer"]
