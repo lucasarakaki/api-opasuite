@@ -36,5 +36,5 @@ function convert_date(string $date): string
 
     $datetime->setTimezone($timezone);
 
-    return $datetime->format('d-m-Y H:i:s');
+    return $datetime->format('d/m/Y H:i');
 }
