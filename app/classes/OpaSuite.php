@@ -165,7 +165,7 @@ class OpaSuite
             }
         }
 
-        return 'Atendente não encontrado!';
+        return 'bot';
     }
 
     /**
