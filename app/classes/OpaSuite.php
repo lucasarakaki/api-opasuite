@@ -128,17 +128,23 @@ class OpaSuite
     public function addAdditionalInfo(array $atendimentos, array $usuarios): array
     {
         foreach ($atendimentos['data'] as &$atendimento) {
-            $id_atendente = $atendimento['id_atendente'];
-            $id_cliente   = $atendimento['id_user'];
-            $id_dept      = $atendimento['setor'];
+            $id_atendimento = $atendimento['_id'];
+            $id_atendente   = $atendimento['id_atendente'];
+            $id_dept        = $atendimento['setor'];
+            $date_start     = $atendimento['date'];
+            $date_end       = $atendimento['fim'];
 
             $atendente_nome    = $this->getUsername($usuarios, $id_atendente);
-            $cliente_nome      = $this->getClientName($id_cliente);
+            $cliente_nome      = $this->getClientName($id_atendimento);
             $departamento_nome = $this->getDeptName($id_dept);
+            $date_start        = convert_date($date_start);
+            $date_end          = convert_date($date_end);
 
             $atendimento['atendente']    = $atendente_nome;
             $atendimento['cliente']      = $cliente_nome;
             $atendimento['departamento'] = $departamento_nome;
+            $atendimento['date_start']   = $date_start;
+            $atendimento['date_end']     = $date_end;
         }
 
         return $atendimentos;
@@ -183,8 +189,8 @@ class OpaSuite
      */
     private function getClientName(string $id): string
     {
-        $cliente_data = $this->getById('cliente', $id);
+        $cliente_data = $this->getById('atendimento', $id);
 
-        return $cliente_data['data']['nome'] ?? 'Cliente não encontrado!';
+        return $cliente_data['data']['id_user']['nome'] ?? 'Cliente não encontrado!';
     }
 }
