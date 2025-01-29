@@ -137,8 +137,8 @@ class OpaSuite
             $atendente_nome    = $this->getUsername($usuarios, $id_atendente);
             $cliente_nome      = $this->getClientName($id_atendimento);
             $departamento_nome = $this->getDeptName($id_dept);
-            $date_start        = convert_date($date_start);
-            $date_end          = convert_date($date_end);
+            $date_start        = convert_date($date_start, 'd/m/Y H:i');
+            $date_end          = convert_date($date_end, 'd/m/Y H:i');
 
             $atendimento['atendente']    = $atendente_nome;
             $atendimento['cliente']      = $cliente_nome;
