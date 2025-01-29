@@ -25,10 +25,11 @@ function extract_fields($item): array
 
 /**
  * @param string $date Data para converter
+ * @param string $format Formato da data
  *
- * @return string Data convertida
+ * @return string
  */
-function convert_date(string $date): string
+function convert_date(string $date, string $format): string
 {
     $datetime = new DateTime($date);
 
@@ -36,5 +37,5 @@ function convert_date(string $date): string
 
     $datetime->setTimezone($timezone);
 
-    return $datetime->format('d/m/Y H:i');
+    return $datetime->format($format);
 }
