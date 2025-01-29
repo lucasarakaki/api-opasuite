@@ -1,6 +1,7 @@
 <?php
 
 date_default_timezone_set('America/Fortaleza');
+ini_set('max_execution_time', '300');
 
 // Require autoload do composer e funções
 require __DIR__ . '/vendor/autoload.php';
