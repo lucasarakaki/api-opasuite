@@ -19,7 +19,7 @@ if (file_exists($file)) {
     $sheet       = $spreadsheet->getActiveSheet();
 
     $headers = [
-        'Inicio do atendimento', 'Fim do atendimento', 'Protocolo', 'Departamento', 'Observação', 'Cliente', 'Atendente', 'Nota do atendente', 'Nota da empresa',
+        'Inicio do atendimento', 'Fim do atendimento', 'Protocolo', 'Departamento', 'Observação', 'Observação - 2', 'Observação - 3', 'Cliente', 'Atendente', 'Nota do atendente', 'Nota da empresa',
     ];
 
     $sheet->fromArray($headers, null, 'A1');
@@ -28,16 +28,18 @@ if (file_exists($file)) {
 
 $row = $last_row + 1;
 foreach ($data as $item) {
-    if ($item['atendente'] != 'bot') {
+    if ($item['atendente'] != '') {
         $sheet->setCellValue('A' . $row, $item['date_start']);
         $sheet->setCellValue('B' . $row, $item['date_end']);
         $sheet->setCellValue('C' . $row, $item['protocolo']);
         $sheet->setCellValue('D' . $row, $item['departamento']);
-        $sheet->setCellValue('E' . $row, ! isset($item['observacoes'][0]) ? 'sem observação' : $item['observacoes'][0]['mensagem']);
-        $sheet->setCellValue('F' . $row, $item['cliente']);
-        $sheet->setCellValue('G' . $row, $item['atendente']);
-        $sheet->setCellValue('H' . $row, ! isset($item['avaliacoes'][0]) ? 'sem avaliação' : $item['avaliacoes'][0]['nota']);
-        $sheet->setCellValue('I' . $row, ! isset($item['avaliacoes'][1]) ? 'sem avaliação' : $item['avaliacoes'][1]['nota']);
+        $sheet->setCellValue('E' . $row, ! isset($item['observacoes'][0]) ? '-' : $item['observacoes'][0]['mensagem']);
+        $sheet->setCellValue('F' . $row, ! isset($item['observacoes'][1]) ? '-' : $item['observacoes'][1]['mensagem']);
+        $sheet->setCellValue('G' . $row, ! isset($item['observacoes'][2]) ? '-' : $item['observacoes'][2]['mensagem']);
+        $sheet->setCellValue('H' . $row, $item['cliente']);
+        $sheet->setCellValue('I' . $row, $item['atendente']);
+        $sheet->setCellValue('J' . $row, ! isset($item['avaliacoes'][0]) ? '-' : $item['avaliacoes'][0]['nota']);
+        $sheet->setCellValue('K' . $row, ! isset($item['avaliacoes'][1]) ? '-' : $item['avaliacoes'][1]['nota']);
         $row++;
     }
 }
