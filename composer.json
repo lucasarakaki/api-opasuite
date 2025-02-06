@@ -1,7 +1,8 @@
 {
     "name":"lucastakeshi/api-opasuite",
     "require-dev":{
-        "symfony/var-dumper": "^5.4"
+        "symfony/var-dumper": "^5.4",
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
