@@ -6,8 +6,8 @@ use InvalidArgumentException;
 
 class OpaSuite
 {
-    private $apiKey;
-    private $baseUrl;
+    private string $apiKey;
+    private string $baseUrl;
 
     /**
      * Vai armazenar a apiKey e baseUrl de acordo com as variáveis
@@ -26,10 +26,10 @@ class OpaSuite
     /**
      * Realiza uma requisição get na api.
      * @param string $endpoint Endpoint da API
-     * @param array $filter Definição de filtros https://api.opasuite.com.br/#intro
-     * @param array $options Opções (skip e limit)
+     * @param array<mixed> $filter Definição de filtros https://api.opasuite.com.br/#intro
+     * @param array<mixed> $options Opções (skip e limit)
      *
-     * @return array Retorna a resposta da API em formato de array.
+     * @return array<mixed> Retorna a resposta da API em formato de array.
      */
     public function get(string $endpoint, array $filter = [], array $options = []): array
     {
@@ -81,7 +81,7 @@ class OpaSuite
      * @param string $endpoint Endpoint da API
      * @param string $id ID inserido na URL
      *
-     * @return array Retorna a resposta da API em formato de array.
+     * @return array<mixed> Retorna a resposta da API em formato de array.
      */
     private function getById(string $endpoint, string $id): array
     {
@@ -121,10 +121,10 @@ class OpaSuite
 
     /**
      * Método reponsável por iterar os dados 'atendente', 'departamento' e 'cliente'
-     * @param array $atendimentos Array com os dados de atendimentos retornados da API
-     * @param array $usuarios Array com os dados de usuários retornados da API
+     * @param array<mixed> $atendimentos Array com os dados de atendimentos retornados da API
+     * @param array<mixed> $usuarios Array com os dados de usuários retornados da API
      *
-     * @return array Array com os novos dados
+     * @return array<mixed> $atendimentos Array com os novos dados
      */
     public function addAdditionalInfo(array $atendimentos, array $usuarios): array
     {
@@ -157,7 +157,7 @@ class OpaSuite
 
     /**
      * Método responsável por localizar o nome do atendente
-     * @param array $usuarios Array com os dados dos usuários do Opa Suite
+     * @param array<mixed> $usuarios Array com os dados dos usuários do Opa Suite
      * @param string $id ID do atendente que deseja encontrar
      *
      * @return string Nome do atendente, ou mensagem de aviso.
