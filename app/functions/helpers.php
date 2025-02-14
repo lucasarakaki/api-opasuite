@@ -4,7 +4,7 @@
  * Extraí os dados retornando pela API
  * @param mixed $item
  *
- * @return array
+ * @return array<mixed>
  */
 function extract_fields($item): array
 {
