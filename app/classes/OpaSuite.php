@@ -15,8 +15,17 @@ class OpaSuite
      */
     public function __construct()
     {
-        $this->apiKey  = $_ENV['API_KEY'] ?? '';
-        $this->baseUrl = $_ENV['BASE_URL'] ?? '';
+        $key = $_ENV['API_KEY'] ?? '';
+        /**
+         * @var string $key
+         */
+        $url = $_ENV['BASE_URL'] ?? '';
+        /**
+         * @var string $url
+         */
+
+        $this->apiKey  = $key;
+        $this->baseUrl = $url;
 
         if (empty($this->apiKey) || empty($this->baseUrl)) {
             throw new Exception("Chave da API ou URL não definida.");
@@ -29,9 +38,9 @@ class OpaSuite
      * @param array<mixed> $filter Definição de filtros https://api.opasuite.com.br/#intro
      * @param array<mixed> $options Opções (skip e limit)
      *
-     * @return array<mixed> Retorna a resposta da API em formato de array.
+     * @return mixed Retorna a resposta da API em formato de array.
      */
-    public function get(string $endpoint, array $filter = [], array $options = []): array
+    public function get(string $endpoint, array $filter = [], array $options = []): mixed
     {
         // Url + endpoint da api
         $url = $this->baseUrl . '/' . ltrim($endpoint, '/');
@@ -81,9 +90,9 @@ class OpaSuite
      * @param string $endpoint Endpoint da API
      * @param string $id ID inserido na URL
      *
-     * @return array<mixed> Retorna a resposta da API em formato de array.
+     * @return mixed Retorna a resposta da API em formato de array.
      */
-    private function getById(string $endpoint, string $id): array
+    private function getById(string $endpoint, string $id): mixed
     {
         // Url + endpoint da api
         $url = $this->baseUrl . '/' . ltrim($endpoint, '/') . '/' . ltrim($id, '/');
@@ -124,7 +133,7 @@ class OpaSuite
      * @param array<mixed> $atendimentos Array com os dados de atendimentos retornados da API
      * @param array<mixed> $usuarios Array com os dados de usuários retornados da API
      *
-     * @return array<mixed> $atendimentos Array com os novos dados
+     * @return array<mixed> Array com os novos dados
      */
     public function addAdditionalInfo(array $atendimentos, array $usuarios): array
     {
@@ -133,6 +142,9 @@ class OpaSuite
         }
 
         foreach ($atendimentos['data'] as &$atendimento) {
+            /**
+             * @var array{_id: string, id_atendente: string, setor: string, date: string, fim: string} $atendimento
+             */
             $id_atendimento = $atendimento['_id'];
             $id_atendente   = $atendimento['id_atendente'];
             $id_dept        = $atendimento['setor'];
@@ -169,6 +181,9 @@ class OpaSuite
         }
 
         foreach ($usuarios['data'] as $usuario) {
+            /**
+             * @var array{_id: string, nome: string} $usuario
+             */
             if ($usuario['_id'] === $id) {
                 return $usuario['nome'];
             }
@@ -186,6 +201,9 @@ class OpaSuite
     private function getDeptName(string $id): string
     {
         $departamento_data = $this->getById('departamento', $id);
+        /**
+         * @var array{data: array{nome: string|null}} $departamento_data
+         */
 
         return $departamento_data['data']['nome'] ?? 'Departamento não encontrado!';
     }
@@ -199,6 +217,9 @@ class OpaSuite
     private function getClientName(string $id): string
     {
         $cliente_data = $this->getById('atendimento', $id);
+        /**
+         * @var array{data: array{id_user: array{nome: string|null}}} $cliente_data
+         */
 
         return $cliente_data['data']['id_user']['nome'] ?? 'Cliente não encontrado!';
     }
