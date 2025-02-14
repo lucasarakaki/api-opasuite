@@ -74,7 +74,7 @@ class OpaSuite
         // Fecha o curl
         curl_close($curl);
 
-        return strlen($response) ? json_decode($response, true) : [];
+        return strlen((string) $response) ? json_decode((string) $response, true) : [];
     }
 
     /**
@@ -116,7 +116,7 @@ class OpaSuite
         // Fecha o curl
         curl_close($curl);
 
-        return strlen($response) ? json_decode($response, true) : [];
+        return strlen((string) $response) ? json_decode((string) $response, true) : [];
     }
 
     /**
