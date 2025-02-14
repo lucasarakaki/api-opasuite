@@ -2,11 +2,11 @@
 
 /**
  * Extraí os dados retornando pela API
- * @param mixed $item
+ * @param array<mixed> $item
  *
- * @return array<mixed>
+ * @return mixed
  */
-function extract_fields($item): array
+function extract_fields($item): mixed
 {
     return [
         'descricacao'  => $item['descricao'],
