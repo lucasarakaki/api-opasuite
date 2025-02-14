@@ -2,6 +2,7 @@
 namespace app\classes;
 
 use Exception;
+use InvalidArgumentException;
 
 class OpaSuite
 {
@@ -127,6 +128,10 @@ class OpaSuite
      */
     public function addAdditionalInfo(array $atendimentos, array $usuarios): array
     {
+        if (! isset($atendimentos['data']) || ! is_array($atendimentos['data'])) {
+            throw new InvalidArgumentException("A chave 'data' não existe ou não é um array.");
+        }
+
         foreach ($atendimentos['data'] as &$atendimento) {
             $id_atendimento = $atendimento['_id'];
             $id_atendente   = $atendimento['id_atendente'];
@@ -159,6 +164,10 @@ class OpaSuite
      */
     private function getUsername(array $usuarios, string $id): string
     {
+        if (! isset($usuarios['data']) || ! is_array($usuarios['data'])) {
+            throw new InvalidArgumentException("A chave 'data' não existe ou não é um array.");
+        }
+
         foreach ($usuarios['data'] as $usuario) {
             if ($usuario['_id'] === $id) {
                 return $usuario['nome'];
